@@ -153,7 +153,7 @@ var _redactorConfig = {
           'outdent', 'indent', 'image', 'filemanager', 'stockimagemanager', 'video', 'link', 'alignment', 'horizontalrule', 'insertIcon'], // + 'underline'
 };
 
-$(window).load(function() {
+$(window).on('load', function() {
 
     $('.pull-down').each(function() {
         var height = 300 - $(this).siblings('.thumbnail').height() - $(this).height() - 48;
@@ -333,7 +333,7 @@ $('.preview-toggle').bind('click', function () {
     }
 });
 
-$('#frame').load(function () {
+$('#frame').on('load', function () {
     var frameBody = $('#frame').contents().find('body');
     $('a', frameBody).click(function(e){
         e.preventDefault();
