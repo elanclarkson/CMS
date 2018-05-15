@@ -15,8 +15,6 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageServiceProvider;
 use Cms;
-use Spatie\LaravelAnalytics\LaravelAnalyticsFacade;
-use Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider;
 use Grafite\Builder\GrafiteBuilderProvider;
 use Grafite\Cms\Console\Keys;
 use Grafite\Cms\Console\ModuleComposer;
@@ -135,7 +133,6 @@ class GrafiteCmsProvider extends ServiceProvider
         $this->app->register(GrafiteBuilderProvider::class);
         $this->app->register(MinifyServiceProvider::class);
         $this->app->register(MarkdownServiceProvider::class);
-        $this->app->register(LaravelAnalyticsServiceProvider::class);
         $this->app->register(ImageServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
