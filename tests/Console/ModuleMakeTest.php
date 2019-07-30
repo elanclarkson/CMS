@@ -13,6 +13,7 @@ class ModuleMakeTest extends TestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->generator = new CrudGenerator();
         $this->config = [
             'framework' => 'Laravel',
@@ -114,16 +115,12 @@ class ModuleMakeTest extends TestCase
 
         $this->assertTrue($this->generator->createTests($this->config, false));
 
-        $contents = $this->crud->getChild('tests/TestTableIntegrationTest.php');
-        $this->assertTrue($this->crud->hasChild('tests/TestTableIntegrationTest.php'));
-        $this->assertContains('class TestTableIntegrationTest', $contents->getContent());
+        $contents = $this->crud->getChild('tests/Feature/TestTableAcceptanceTest.php');
+        $this->assertTrue($this->crud->hasChild('tests/Feature/TestTableAcceptanceTest.php'));
+        $this->assertContains('class TestTableAcceptanceTest', $contents->getContent());
 
-        $contents = $this->crud->getChild('tests/TestTableRepositoryTest.php');
-        $this->assertTrue($this->crud->hasChild('tests/TestTableRepositoryTest.php'));
-        $this->assertContains('class TestTableRepositoryTest', $contents->getContent());
-
-        $contents = $this->crud->getChild('tests/TestTableServiceTest.php');
-        $this->assertTrue($this->crud->hasChild('tests/TestTableServiceTest.php'));
+        $contents = $this->crud->getChild('tests/Unit/TestTableServiceTest.php');
+        $this->assertTrue($this->crud->hasChild('tests/Unit/TestTableServiceTest.php'));
         $this->assertContains('class TestTableServiceTest', $contents->getContent());
     }
 
@@ -133,10 +130,10 @@ class ModuleMakeTest extends TestCase
 
         $this->assertTrue($this->generator->createTests($this->config, true));
 
-        $this->assertFalse($this->crud->hasChild('tests/TestTableAcceptanceTest.php'));
+        $this->assertFalse($this->crud->hasChild('tests/Feature/TestTableAcceptanceTest.php'));
 
-        $contents = $this->crud->getChild('tests/TestTableServiceTest.php');
-        $this->assertTrue($this->crud->hasChild('tests/TestTableServiceTest.php'));
+        $contents = $this->crud->getChild('tests/Unit/TestTableServiceTest.php');
+        $this->assertTrue($this->crud->hasChild('tests/Unit/TestTableServiceTest.php'));
         $this->assertContains('class TestTableServiceTest', $contents->getContent());
     }
 

@@ -10,7 +10,7 @@
                 @include('cms::modules.events.breadcrumbs', ['location' => ['edit']])
             </div>
             <div class="col-md-6">
-                <div class="btn-toolbar float-right mt-2">
+                <div class="btn-toolbar float-right mt-2 mb-4">
                     @if (! cms()->isDefaultLanguage() && $event->translationData(request('lang')))
                         @if (isset($event->translationData(request('lang'))->is_published))
                             <a class="btn btn-success ml-1" href="{!! url('events/event/'.$event->id) !!}">Live</a>
@@ -60,7 +60,7 @@
 
                     <input type="hidden" name="lang" value="{{ request('lang') }}">
 
-                    {!! FormMaker::setColumns(2)->fromObject($event->asObject(), config('cms.forms.event.identity')) !!}
+                    {!! FormMaker::setColumns(3)->fromObject($event->asObject(), config('cms.forms.event.identity')) !!}
                     {!! FormMaker::setColumns(1)->fromObject($event->asObject(), config('cms.forms.event.content')) !!}
                     {!! FormMaker::setColumns(2)->fromObject($event->asObject(), config('cms.forms.event.seo')) !!}
                     {!! FormMaker::setColumns(2)->fromObject($event->asObject(), config('cms.forms.event.publish')) !!}

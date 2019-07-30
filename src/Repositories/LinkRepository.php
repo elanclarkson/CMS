@@ -5,17 +5,21 @@ namespace Grafite\Cms\Repositories;
 use Exception;
 use Grafite\Cms\Models\Link;
 use Grafite\Cms\Repositories\CmsRepository;
+use Grafite\Cms\Repositories\TranslationRepository;
 
 class LinkRepository extends CmsRepository
 {
     public $model;
 
+    public $translationRepo;
+
     public $table;
 
-    public function __construct(Link $model)
+    public function __construct(Link $model, TranslationRepository $translationRepo)
     {
         $this->model = $model;
-        $this->table = config('cms.db-prefix').'.links';
+        $this->table = config('cms.db-prefix').'links';
+        $this->translationRepo = $translationRepo;
     }
 
     /**
@@ -41,7 +45,15 @@ class LinkRepository extends CmsRepository
             throw new Exception("Your link was not connected to anything, and could not be made", 1);
         }
 
-        return $this->model->create($payload);
+        $link = $this->model->create($payload);
+
+        $order = json_decode($link->menu->order);
+        array_push($order, $link->id);
+        $link->menu->update([
+            'order' => json_encode($order),
+        ]);
+
+        return $link;
     }
 
     /**
@@ -59,14 +71,20 @@ class LinkRepository extends CmsRepository
     /**
      * Updates Links into database.
      *
-     * @param Links $links
-     * @param array $payload
+     * @param Link  $link
+     * @param array $input
      *
-     * @return Links
+     * @return Link
      */
     public function update($link, $payload)
     {
         $payload['external'] = isset($payload['external']) ? $payload['external'] : 0;
+
+        if (!empty($payload['lang']) && $payload['lang'] !== config('cms.default-language', 'en')) {
+            return $this->translationRepo->createOrUpdate($link->id, 'Grafite\Cms\Models\Link', $payload['lang'], $payload);
+        }
+
+        unset($payload['lang']);
 
         return $link->update($payload);
     }

@@ -2,8 +2,23 @@
 
 namespace Grafite\Cms;
 
+use Cms;
 use Devfactory\Minify\Facades\MinifyFacade;
 use Devfactory\Minify\MinifyServiceProvider;
+use Grafite\Builder\GrafiteBuilderProvider;
+use Grafite\Cms\Console\Keys;
+use Grafite\Cms\Console\ModuleComposer;
+use Grafite\Cms\Console\ModuleCrud;
+use Grafite\Cms\Console\ModuleMake;
+use Grafite\Cms\Console\ModulePublish;
+use Grafite\Cms\Console\Setup;
+use Grafite\Cms\Console\ThemeGenerate;
+use Grafite\Cms\Console\ThemeLink;
+use Grafite\Cms\Console\ThemePublish;
+use Grafite\Cms\Providers\CmsEventServiceProvider;
+use Grafite\Cms\Providers\CmsModuleProvider;
+use Grafite\Cms\Providers\CmsRouteProvider;
+use Grafite\Cms\Providers\CmsServiceProvider;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use GrahamCampbell\Markdown\MarkdownServiceProvider;
 use Illuminate\Foundation\AliasLoader;
@@ -14,20 +29,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageServiceProvider;
-use Cms;
-use Grafite\Builder\GrafiteBuilderProvider;
-use Grafite\Cms\Console\Keys;
-use Grafite\Cms\Console\ModuleComposer;
-use Grafite\Cms\Console\ModuleCrud;
-use Grafite\Cms\Console\ModuleMake;
-use Grafite\Cms\Console\ModulePublish;
-use Grafite\Cms\Console\Setup;
-use Grafite\Cms\Console\ThemeGenerate;
-use Grafite\Cms\Console\ThemePublish;
-use Grafite\Cms\Providers\CmsEventServiceProvider;
-use Grafite\Cms\Providers\CmsModuleProvider;
-use Grafite\Cms\Providers\CmsRouteProvider;
-use Grafite\Cms\Providers\CmsServiceProvider;
 
 class GrafiteCmsProvider extends ServiceProvider
 {
@@ -95,6 +96,10 @@ class GrafiteCmsProvider extends ServiceProvider
             return "<?php echo Cms::widget($expression); ?>";
         });
 
+        Blade::directive('promotion', function ($expression) {
+            return "<?php echo Cms::promotion($expression); ?>";
+        });
+
         Blade::directive('image', function ($expression) {
             return "<?php echo Cms::image($expression); ?>";
         });
@@ -139,7 +144,6 @@ class GrafiteCmsProvider extends ServiceProvider
 
         $loader->alias('Minify', MinifyFacade::class);
         $loader->alias('Markdown', Markdown::class);
-        $loader->alias('LaravelAnalytics', LaravelAnalyticsFacade::class);
         $loader->alias('Image', Image::class);
 
         /*
@@ -151,6 +155,7 @@ class GrafiteCmsProvider extends ServiceProvider
         $this->commands([
             ThemeGenerate::class,
             ThemePublish::class,
+            ThemeLink::class,
             ModulePublish::class,
             ModuleMake::class,
             ModuleComposer::class,

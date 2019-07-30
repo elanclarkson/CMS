@@ -85,6 +85,8 @@ function confirmDelete (url) {
 */
 
 $(function () {
+    $('.bulk-image-delete').hide();
+
     $('#saveImagesBtn').click(function(e){
         e.preventDefault();
         Dropzone.forElement('.dropzone').processQueue();
@@ -96,6 +98,12 @@ $(function () {
         } else {
             $(this).removeClass('selected-highlight');
         }
+
+        if ($('.selected-highlight').length > 0) {
+            $('.bulk-image-delete').show();
+        } else {
+            $('.bulk-image-delete').hide();
+        }
     });
 
     $('.bulk-image-delete').click(function () {
@@ -106,7 +114,7 @@ $(function () {
 
         if (_images.length > 0) {
             $('#bulkImageDeleteModal').modal('toggle');
-            var _deleteUrl = _url + '/cms/images/bulk-delete/' + _images.join('-')
+            var _deleteUrl = _cmsUrl +'/images/bulk-delete/' + _images.join('-')
             $('#bulkImageDelete').attr('href', _deleteUrl);
         }
     });

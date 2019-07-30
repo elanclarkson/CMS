@@ -3,6 +3,103 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 ----
 
+## [v3.2.2] - 2018-10-25
+
+### Added
+- Ability to delete hero images
+
+### Changed
+- Module migrations
+
+### Fixed
+- Npm security aduit
+- Mobile UI fixes
+- Menu and link fixes
+
+## [v3.2.1] - 2018-09-14
+
+### Fixed
+- Issue with middleware not being added via simple setup
+
+## [v3.2.0] - 2018-09-06
+
+### Changed
+- Laravel 5.7 support
+
+## [v3.1.9] - 2018-09-06
+
+### Changed
+- Added info on Redactor to readme
+
+### Fixed
+- Issue with file and image upload
+
+## [v3.1.8] - 2018-09-05
+
+### Fixed
+- Issue with file and image uploads
+-  and bulk photo delete
+
+## [v3.1.7] - 2018-09-03
+
+### Added
+- New Promotions component
+- All new Redactor 3 integration
+- Google Analytics support upgrade
+
+### Changed
+- Improved API component
+- Improved module templates
+- Link page connection improvements
+
+### Fixed
+- Issues with languages
+- Issues with UI
+- Issues with images
+
+## [v3.1.6] - 2018-08-01
+
+### Changed
+- Improved the urls of published files
+
+### Fixed
+- Issue with CMS modules
+- Issues with translations
+- Issue with notifications
+
+## [v3.1.5] - 2018-07-03
+
+### Changed
+- Added optional class to menu blade directive
+
+### Fixed
+- Issue with menus
+- Issue with BaseService files
+
+## [v3.1.4] - 2018-06-24
+
+### Changed
+- Minor code cleanup
+
+### Fixed
+- Issue with notifications
+
+## [v3.1.3] - 2018-06-18
+
+### Fixed
+- Minor issues with dark theme
+- Test fixes
+
+## [v3.1.2] - 2018-06-18
+
+### Added
+- Translatable menu links
+- New theme symlink command
+
+### Fixed
+- Side panel spacing
+- Translation improvements
+
 ## [v3.1.1] - 2018-04-19
 
 ### Fixed

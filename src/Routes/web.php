@@ -6,6 +6,7 @@
         Route::get($routePrefix, 'GrafiteCmsFeatureController@sendHome');
         Route::get('{module}/rss', 'RssController@index');
         Route::get('site-map', 'SiteMapController@index');
+        Route::get($routePrefix.'/hero-images/delete/{entity}/{entity_id}', 'GrafiteCmsFeatureController@deleteHero');
 
         /*
         |--------------------------------------------------------------------------
@@ -30,14 +31,14 @@
          * Internal APIs
          * --------------------------------------------------------------------------
         */
-        Route::group(['middleware' => 'auth'], function () {
+        Route::group(['middleware' => 'auth'], function () use ($routePrefix) {
             Route::group(['prefix' => 'cms/api'], function () {
                 Route::get('images/list', 'ImagesController@apiList');
                 Route::post('images/store', 'ImagesController@apiStore');
                 Route::get('files/list', 'FilesController@apiList');
             });
 
-            Route::group(['prefix' => 'cms'], function () {
+            Route::group(['prefix' => $routePrefix], function () {
                 Route::get('images/bulk-delete/{ids}', 'ImagesController@bulkDelete');
                 Route::post('images/upload', 'ImagesController@upload');
                 Route::post('files/upload', 'FilesController@upload');
@@ -123,6 +124,15 @@
 
                 Route::resource('widgets', 'WidgetsController', ['as' => $routePrefix, 'except' => ['show']]);
                 Route::post('widgets/search', 'WidgetsController@search');
+
+                /*
+                |--------------------------------------------------------------------------
+                | Promotions
+                |--------------------------------------------------------------------------
+                */
+
+                Route::resource('promotions', 'PromotionsController', ['as' => $routePrefix, 'except' => ['show']]);
+                Route::post('promotions/search', 'PromotionsController@search');
 
                 /*
                 |--------------------------------------------------------------------------

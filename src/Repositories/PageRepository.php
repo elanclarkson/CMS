@@ -21,7 +21,7 @@ class PageRepository extends CmsRepository
     {
         $this->model = $model;
         $this->translationRepo = $translationRepo;
-        $this->table = config('cms.db-prefix').'.pages';
+        $this->table = config('cms.db-prefix').'pages';
     }
 
     /**
@@ -90,6 +90,7 @@ class PageRepository extends CmsRepository
         $payload = $this->parseBlocks($payload, 'pages');
 
         if (isset($payload['hero_image'])) {
+            app(FileService::class)->delete($page->hero_image);
             $file = request()->file('hero_image');
             $path = app(FileService::class)->saveFile($file, 'public/images', [], true);
             $payload['hero_image'] = $path['name'];

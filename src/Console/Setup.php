@@ -164,7 +164,7 @@ class Setup extends Command
 
         // Kernel setup
         $routeContents = file_get_contents(app_path('Http/Kernel.php'));
-        $routeContents = str_replace("'auth' => \Illuminate\Auth\Middleware\Authenticate::class,", "'auth' => \Illuminate\Auth\Middleware\Authenticate::class,\n\t\t'cms' => \App\Http\Middleware\GrafiteCms::class,\n\t\t'cms-api' => \App\Http\Middleware\GrafiteCmsApi::class,\n\t\t'cms-analytics' => \Grafite\Cms\Middleware\GrafiteCmsAnalytics::class,\n\t\t'cms-language' => \App\Http\Middleware\GrafiteCmsLanguage::class,\n\t\t'admin' => \App\Http\Middleware\Admin::class,\n\t\t'active' => \App\Http\Middleware\Active::class,", $routeContents);
+        $routeContents = str_replace("'auth' => \App\Http\Middleware\Authenticate::class,", "'auth' => \App\Http\Middleware\Authenticate::class,\n\t\t'cms' => \App\Http\Middleware\GrafiteCms::class,\n\t\t'cms-api' => \App\Http\Middleware\GrafiteCmsApi::class,\n\t\t'cms-analytics' => \Grafite\Cms\Middleware\GrafiteCmsAnalytics::class,\n\t\t'cms-language' => \App\Http\Middleware\GrafiteCmsLanguage::class,\n\t\t'admin' => \App\Http\Middleware\Admin::class,\n\t\t'active' => \App\Http\Middleware\Active::class,", $routeContents);
         file_put_contents(app_path('Http/Kernel.php'), $routeContents);
 
         $fileSystem = new Filesystem();
@@ -299,12 +299,12 @@ public function leaveAllTeams($userId)
         $seed = str_replace('$this->call(TeamTableSeeder::class);', '', $seed);
         file_put_contents(base_path('database/seeds/DatabaseSeeder.php'), $seed);
 
-        $css = file_get_contents(base_path('resources/assets/sass/app.scss'));
+        $css = file_get_contents(base_path('resources/sass/app.scss'));
         $css = str_replace('@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";', '@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";'."\n".'@import "resources/themes/default/assets/sass/_theme.scss";', $css);
-        file_put_contents(base_path('resources/assets/sass/app.scss'), $css);
+        file_put_contents(base_path('resources/sass/app.scss'), $css);
 
         $composer = file_get_contents(base_path('composer.json'));
-        $composer = str_replace('"App\\": "app/",', '"App\\": "app/",'."\n".'"Cms\\Modules\\": "cms/modules/",', $composer);
+        $composer = str_replace('"App\\": "app/",', '"App\\": "app/",'."\n".'"Cms\\Modules\\": "cms/Modules/",', $composer);
         file_put_contents(base_path('composer.json'), $composer);
     }
 
