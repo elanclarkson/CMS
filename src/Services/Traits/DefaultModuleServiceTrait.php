@@ -40,7 +40,7 @@ trait DefaultModuleServiceTrait
 
         if ($widget) {
             if (Gate::allows('cms', Auth::user())) {
-                $widget->content .= '<a href="'.url(config('cms.backend-route-prefix', 'cms').'/widgets/'.$widget->id.'/edit').'" class="btn btn-sm ml-2 btn-outline-secondary"><span class="fa fa-edit"></span> Edit</a>';
+                $widget->content .= '<a href="'.url(config('cms.backend-route-prefix', 'cms').'/widgets/'.$widget->id.'/edit').'" class="btn btn-default edit-widget-button><span class="fa fa-edit"></span> Edit</a>';
             }
 
             if (config('app.locale') !== config('cms.default-language') && $widget->translation(config('app.locale'))) {
