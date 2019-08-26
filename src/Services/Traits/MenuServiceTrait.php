@@ -103,7 +103,9 @@ trait MenuServiceTrait
 
             $sortedLinks = [];
             foreach ($keys as $key) {
-                $sortedLinks[] = $links[$key];
+                if ($links->has($key)) {
+                	$sortedLinks[] = $links[$key];
+                }
             }
 
             return collect($sortedLinks);
